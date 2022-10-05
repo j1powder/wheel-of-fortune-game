@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="app.js" defer></script>
+    <title>Wheel Of Fortune</title>
+</head>
+<style>
+body{
+    background-color: ghostwhite;
+    justify-content: center;
+    align-items: center;
+   height: 100vh;
+    overflow: scroll;
+   background-size:cover;
+}
+.mainbox{
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+.mainbox:after{
+    position: absolute;
+    content:'';
+    width: 32px;
+    height:32px;
+    background: url('icons8-left-arrow-64.png')no-repeat;
+    background-size: 32px;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.box{
+    background-color: darkgrey;
+    width:100%;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+    border: 10px solid darkgrey;
+    overflow: hidden;
+    transition: all ease 5s;
+    
+}
+span{
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+    position: absolute;
+}
+.span1{
+    clip-path: polygon(0 92%, 100% 50%, 0 8%);
+    background-color: lightgreen;
+    top: 120px;
+    left: 0;
+}
+.span2{
+    clip-path: polygon(100% 92%, 0 50%, 100% 8%);
+    background-color: lightgoldenrodyellow;
+    top: 120px;
+    right: 0;
+}
+.span3{
+    clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
+    background-color: skyblue;
+    bottom: 0;
+    left: 120px;
+}
+.span4{
+    clip-path: polygon(50% 100%, 92% 0%, 8% 0%);
+    background-color: lightgray;
+    top: 0;
+    left: 120px;
+}
+.box2{
+    width: 100%;
+    height:100%;
+    transform: rotate(-135deg);
+}
+span b{
+    width: 65px;
+    height: 65px;
+    line-height: 65px;
+    border-radius: 50%;
+    font-size: 26px;
+    text-align: center;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 3px 3px 0 #717171;
+}
+
+.spin{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background-color: #ff5722;
+    color: #fff;
+    box-shadow: 0 5px 20px #000;
+    font-weight: bold;
+    font-size: 22px;
+    cursor: pointer;
+
+}
+.spin:active{
+    width: 70px;
+    height: 70px;
+    font-size: 20px;
+}
+.mainbox.animate::after{
+    animation: animateArrow 0.7s ease infinite;
+}
+#title{
+    text-align: center;
+}
+
+#question1{
+    display: block;
+}
+#question2{
+    display: none;
+}
+#question3{
+    display: none;
+}
+#question4{
+    display: none;
+}
+#question5{
+    display: none;
+}
+#question6{
+    display: none;
+}
+#question7{
+    display: none;
+}
+#take-a-spin{
+    color: green;
+    display: none;
+}
+#no-spin{
+    color: red;
+    display:none;
+}
+#confirm-btn1{
+    display: block;
+}
+#confirm-btn2{
+    display: none;
+}
+#confirm-btn3{
+    display: none;
+}
+#confirm-btn4{
+    display: none;
+}
+#confirm-btn5{
+    display: none;
+}
+#confirm-btn6{
+    display: none;
+}
+#confirm-btn7{
+    display: none;
+}
+#submit-btn{
+    display: none;
+}
+#finalScore{
+    display: none;
+}
+#showscoresection{
+    text-align: center;
+}
+#totalspinsdisplay{
+    display: none;
+}
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+    <h1 id="title">Wheel of Fortune!</h1>
+<br><br><br><br>
+
+    <section id="questions-section">
+        
+        <div class="quiz-questions" id="question1">
+           <form id="myForm" name="myForm">     
+       <label>1. All incidents - regardless of size or impact - need to be investigated?</label>
+       <br>
+       <input class="true" name="user-answer1" type="radio" value="1"> <label for="true">True</label><br>
+       <input class="false" name="user-answer1" type="radio" value="0"> <label for="false">False</label>
+       <br><br>
+      
+   </div>
+     
+   
+      
+      <div class="quiz-questions" id="question2">
+       
+      <label>2. Preparation for incident investigation is just as important as the investigation itself.</label>
+       <br>
+       <input class="true" name="user-answer2" type="radio" value="1"> <label for="true">True</label><br>
+       <input class="false" name="user-answer2" type="radio" value="0"> <label for="false">False</label>
+       <br><br>
+       
+      </div>
+   
+      <div class="quiz-questions" id="question3">
+       <label>3. Always jump to conclusions.</label>
+       <br>
+       <input class="false" name="user-answer3" type="radio" value="0"> <label for="true">True</label><br>
+       <input class="true" name="user-answer3" type="radio" value="1"> <label for="false">False</label>
+       <br><br>
+   </div>
+   
+   <div class="quiz-questions" id="question4">
+       <label>4. How should you interview witnesses?</label>
+       <br>
+       <input class="true" name="user-answer4" type="radio"  value="1"> <label for="true">A. Individually</label><br>
+       <input class="false" name="user-answer4" type="radio" value="0"> <label for="false">B. Immediately</label><br>
+       <input class="false" name="user-answer4" type="radio" value="0"> <label for="false">C. Ask open ended questions</label><br>
+       <input class="false" name="user-answer4" type="radio" value="0"> <label for="false">D. Ask who, what, where, when, why and how questions.</label><br>    
+       <input class="false" name="user-answer4" type="radio" value="0"> <label for="false">E. All of the Above</label><br>    
+   </div>
+   
+   <div class="quiz-questions" id="question5">
+       <label>5. Which of the following should be considered when analyzing the evidence?</label>
+       <br>
+       <input class="true" name="user-answer5" type="radio"  value="1"> <label for="false">A. Standard Operating Procedures (SOP)</label><br>
+       <input class="false" name="user-answer5" type="radio" value="0"> <label for="false">B. Equipment</label><br>
+       <input class="false" name="user-answer5" type="radio" value="0"> <label for="false">C. Training Records</label><br>
+       <input class="false" name="user-answer5" type="radio" value="0"> <label for="false">D. Environmental Factors</label><br>    
+       <input class="false" name="user-answer5" type="radio" value="0"> <label for="true">E. All of the Above</label><br>    
+   </div>
+   
+   <div class="quiz-questions" id="question6">
+       <label>6. What is not a part of the written report?</label>
+       <br>
+       <input class="true" name="user-answer6" type="radio" value="1"> <label for="false">A. Description of Incident</label><br>
+       <input class="false" name="user-answer6" type="radio" value="0"> <label for="false">B. Pictures</label><br>
+       <input class="false" name="user-answer6" type="radio" value="0"> <label for="false">C. Sketches</label><br>
+       <input class="false" name="user-answer6" type="radio" value="0"> <label for="true">D. Directions</label><br>    
+   </div>
+   
+   <div class="quiz-questions" id="question7">
+       <label>7. What is not a part of the written report?</label>
+       <br>
+       <input class="true" name="user-answer7" type="radio" value="1"> <label for="false">A. Worker participation in safety and health activities</label><br>
+       <input class="false" name="user-answer7" type="radio" value="0"> <label for="false">B. Reporting a work-related injury, illness, fatality, or violation of statutes</label><br>
+       <input class="false" name="user-answer7" type="radio" value="0"> <label for="false">C. An employer cannot retaliate by taking “adverse action” against workers</label><br>
+       <input class="false" name="user-answer7" type="radio" value="0"> <label for="true">D. All of the Above</label><br>    
+   </div>
+       <h3 id="take-a-spin">Correct! - Take a Spin!</h3>
+       <h3 id="no-spin">Wrong! - Lose your Spin</h3>
+        <!--<button id="submit-btn" type="submit">Submit</button>-->
+          </form>
+         <button id="confirm-btn1">Next</button>
+         <button id="confirm-btn2">Next</button>
+         <button id="confirm-btn3">Next</button>
+         <button id="confirm-btn4">Next</button>
+         <button id="confirm-btn5">Next</button>
+         <button id="confirm-btn6">Next</button>
+         <button id="confirm-btn7">Submit</button>
+         
+         <h3 id="finalScore">Final Score</h3>
+         <h4 id="final-score"></h4><br>
+         <h3 id="totalspinsdisplay">Total Spin Score:</h3>
+         <h4 id="totalspinscore"></h4>
+<section id="showscoresection">
+
+          <h3 id="spin-result">Spin Result</h3>
+          <h4 id="see-spin-result" value=""></h4>
+</section>
+
+    <div class="mainbox"> 
+        <div id="box" class="box">
+            <div class="box1">
+                <span class="span1"></span>
+                <span class="span2"><b>150</b></span>
+                <span class="span3"><b>250</b></span>
+                <span class="span4"><b>350</b></span>
+
+            </div>
+            <div class="box2">
+                <span class="span1"><b>10</b></span>
+                <span class="span2"><b>110</b></span>
+                <span class="span3"><b>210</b></span>
+                <span class="span4"><b>310</b></span>
+            </div>
+        </div>
+        <button disabled class="spin" id="spin-me" >SPIN</button>
+    </div>
+    <br><br><br><br>
+    
+    <!--
+    <section id="questions-section">
+        
+     <div class="quiz-questions" id="question1">
+        <form>     
+    <label>1. All incidents - regardless of size or impact - need to be investigated?</label>
+    <br>
+    <input class="true" name="user-answer1" type="radio"> <label for="true">True</label><br>
+    <input class="false" name="user-answer1" type="radio"> <label for="false">False</label>
+    <br><br>
+</div>
+  
+
+   
+   <div class="quiz-questions" id="question2">
+    
+   <label>2. Preparation for incident investigation is just as important as the investigation itself.</label>
+    <br>
+    <input class="true" name="user-answer2" type="radio"> <label for="true">True</label><br>
+    <input class="false" name="user-answer2" type="radio"> <label for="false">False</label>
+    <br><br>
+   </div>
+
+   <div class="quiz-questions" id="question3">
+    <label>3. Always jump to conclusions.</label>
+    <br>
+    <input class="false" name="user-answer3" type="radio"> <label for="true">True</label><br>
+    <input class="true" name="user-answer3" type="radio"> <label for="false">False</label>
+    <br><br>
+</div>
+
+<div class="quiz-questions" id="question4">
+    <label>4. How should you interview witnesses?</label>
+    <br>
+    <input class="true" name="user-answer4" type="radio"> <label for="true">A. Individually</label><br>
+    <input class="false" name="user-answer4" type="radio"> <label for="false">B. Immediately</label><br>
+    <input class="false" name="user-answer4" type="radio"> <label for="false">C. Ask open ended questions</label><br>
+    <input class="false" name="user-answer4" type="radio"> <label for="false">D. Ask who, what, where, when, why and how questions.</label><br>    
+    <input class="false" name="user-answer4" type="radio"> <label for="false">E. All of the Above</label><br>    
+</div>
+
+<div class="quiz-questions" id="question5">
+    <label>5. Which of the following should be considered when analyzing the evidence?</label>
+    <br>
+    <input class="true" name="user-answer5" type="radio"> <label for="false">A. Standard Operating Procedures (SOP)</label><br>
+    <input class="false" name="user-answer5" type="radio"> <label for="false">B. Equipment</label><br>
+    <input class="false" name="user-answer5" type="radio"> <label for="false">C. Training Records</label><br>
+    <input class="false" name="user-answer5" type="radio"> <label for="false">D. Environmental Factors</label><br>    
+    <input class="false" name="user-answer5" type="radio"> <label for="true">E. All of the Above</label><br>    
+</div>
+
+<div class="quiz-questions" id="question6">
+    <label>6. What is not a part of the written report?</label>
+    <br>
+    <input class="true" name="user-answer6" type="radio"> <label for="false">A. Description of Incident</label><br>
+    <input class="false" name="user-answer6" type="radio"> <label for="false">B. Pictures</label><br>
+    <input class="false" name="user-answer6" type="radio"> <label for="false">C. Sketches</label><br>
+    <input class="false" name="user-answer6" type="radio"> <label for="true">D. Directions</label><br>    
+</div>
+
+<div class="quiz-questions" id="question7">
+    <label>7. What is not a part of the written report?</label>
+    <br>
+    <input class="true" name="user-answer7" type="radio"> <label for="false">A. Worker participation in safety and health activities</label><br>
+    <input class="false" name="user-answer7" type="radio"> <label for="false">B. Reporting a work-related injury, illness, fatality, or violation of statutes</label><br>
+    <input class="false" name="user-answer7" type="radio"> <label for="false">C. An employer cannot retaliate by taking “adverse action” against workers</label><br>
+    <input class="false" name="user-answer7" type="radio"> <label for="true">D. All of the Above</label><br>    
+</div>
+    <h3 id="take-a-spin">Correct! - Take a Spin!</h3>
+    <h3 id="no-spin">Wrong! - Lose your Spin</h3>
+       </form>
+      <button id="confirm-btn1">Next</button>
+      <button id="confirm-btn2">Next</button>
+      <button id="confirm-btn3">Next</button>
+      <button id="confirm-btn4">Next</button>
+      <button id="confirm-btn5">Next</button>
+      <button id="confirm-btn6">Next</button>
+      <button id="confirm-btn7">Next</button>
+<br><br><br><br><br>
+
+
+
+
+    </section>-->
+
+
+</div>
+</div>
+</div>
+</body>
+</html>
